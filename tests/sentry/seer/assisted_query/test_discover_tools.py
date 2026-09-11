@@ -1,8 +1,7 @@
-from unittest import mock
-
 from sentry.seer.assisted_query.discover_tools import (
     _ALWAYS_RETURN_EVENT_FIELDS,
     _SPECIAL_FIELD_VALUE_TYPES,
+    _get_static_values,
     get_event_filter_key_values,
     get_event_filter_keys,
 )
@@ -169,18 +168,8 @@ class TestGetEventFilterKeyValues(APITestCase, SnubaTestCase):
         super().setUp()
         self.min_ago = before_now(minutes=1)
 
-    def test_get_event_filter_key_values_integer_returns_empty(self) -> None:
-        with mock.patch("sentry.seer.assisted_query.discover_tools.ApiClient.get") as mock_get:
-            result = get_event_filter_key_values(
-                org_id=self.organization.id,
-                project_ids=[self.project.id],
-                filter_key="issue.id",
-                stats_period="7d",
-            )
-
-        assert isinstance(result, EventFilterKeyValuesResponse)
-        assert result.dict() == []
-        mock_get.assert_not_called()
+    def test_get_static_values_integer_returns_empty(self) -> None:
+        assert _get_static_values("issue.id") == []
 
     def test_get_event_filter_key_values_tag_key(self) -> None:
         """Test getting values for a tag key"""
