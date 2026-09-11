@@ -85,6 +85,7 @@ _ALWAYS_RETURN_EVENT_FIELDS = frozenset(
 _SPECIAL_FIELD_VALUE_TYPES = {
     "id": "uuid",
     "issue": "issue_short_id",
+    "issue.id": "integer",
     "timestamp": "datetime",
     "timestamp.to_hour": "datetime",
     "timestamp.to_day": "datetime",
@@ -178,7 +179,7 @@ def _get_static_values(key: str) -> list[dict[str, Any]] | None:
     value_type = _SPECIAL_FIELD_VALUE_TYPES.get(key, "")
 
     if (
-        value_type in ["uuid", "issue_short_id", "datetime"]
+        value_type in ["uuid", "issue_short_id", "datetime", "integer"]
         or key.startswith("measurements.")
         or key == "device.class"
         or _is_agg_function(key)
