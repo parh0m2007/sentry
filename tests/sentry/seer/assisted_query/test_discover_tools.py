@@ -54,6 +54,7 @@ class TestGetEventFilterKeys(APITestCase, SnubaTestCase):
 
         assert isinstance(result, EventFilterKeysResponse)
         result_d = result.dict()
+        assert "issue.id" in result_d
 
         # Check tags
         for k in ["fruit", "color"]:

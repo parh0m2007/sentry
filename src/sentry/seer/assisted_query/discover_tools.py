@@ -50,6 +50,7 @@ _ALWAYS_RETURN_EVENT_FIELDS = frozenset(
         "trace.parent_span",  # Parent span ID
         "project",  # Project slug
         "issue",  # Issue short ID
+        "issue.id",  # Numeric issue ID
         "has",
         # Fields stored in contexts map, not exposed via tags
         "unreal.crash_type",
